@@ -8,9 +8,17 @@
 
 ## 使い方
 
-### デプロイ
+### deploy
 
 ```sh
 (cd layer/nodejs; npm install)
 sls deploy
 ```
+
+### API
+
+- holiday
+  - リクエストした日の祝日(`publicHoliday`)を返す
+
+- hokiday/{date}
+  - {date}で指定した日の祝日(`publicHoliday`)を返す
