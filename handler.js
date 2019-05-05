@@ -6,13 +6,15 @@ const dateFormat = require('dateformat');
 const csvParse = require('csv-parse/lib/sync');
 const request = require('sync-request');
 
-module.exports.hello = function(event, context, callback) {
+module.exports.search = function(event, context, callback) {
 
-  console.log(event);
+  console.log(JSON.stringify(event));
 
-  var url = 'https://www8.cao.go.jp/chosei/shukujitsu/syukujitsu.csv';
+  var url = process.env['holiday_csv_url'];
 
-  var paramDate = dateFormat(new Date(event.date), "yyyymmdd");
+  var d = dateFormat(
+    event.date == "" ? new Date() : new Date(event.date),
+    "yyyy-mm-dd");
 
   var response = request('GET', url);
 
@@ -32,10 +34,10 @@ module.exports.hello = function(event, context, callback) {
     skip_empty_line: true, 
     trim: true
   }).slice().reverse().forEach(function(record) {
-    if (paramDate == dateFormat(new Date(record[0]), "yyyymmdd")) {
+    if (d == dateFormat(new Date(record[0]), "yyyy-mm-dd")) {
       callback(null, {
         statusCode: response.statusCode,
-        date: paramDate,
+        date: d,
         publicHoliday: record[1]
       });
     }
@@ -43,7 +45,7 @@ module.exports.hello = function(event, context, callback) {
 
   callback(null, {
     statusCode: response.statusCode,
-    date: paramDate,
+    date: d,
     publicHoliday: null
   });
 };
