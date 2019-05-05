@@ -19,6 +19,24 @@ sls deploy
 
 - holiday
   - リクエストした日の祝日(`publicHoliday`)を返す
+  - _response_
+    ```json
+    {
+      "statusCode":200,
+      "date":"2019-05-05",
+      "publicHoliday":"こどもの日"
+    }
+    ```
 
-- hokiday/{date}
+    ```json
+    {
+      "statusCode":200,
+      "date":"2019-05-20",
+      "publicHoliday":""
+    }
+    ```
+
+- holiday/{date}
   - {date}で指定した日の祝日(`publicHoliday`)を返す
+  - _response_
+    holiday に同じ
