@@ -46,6 +46,6 @@ module.exports.search = function(event, context, callback) {
   callback(null, {
     statusCode: response.statusCode,
     date: d,
-    publicHoliday: null
+    publicHoliday: ""
   });
 };
