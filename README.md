@@ -11,8 +11,12 @@
 ### deploy
 
 ```sh
+BUCKET_NAME=public-holiday-api-$(cat /dev/urandom | tr -dc 'a-z0-9' | fold -w 16 | head -n 1)
+echo ${BUCKET_NAME}
+  #
+
 (cd layer/nodejs; npm install)
-sls deploy
+sls deploy --bucket-name ${BUCKET_NAME}
 ```
 
 ### API

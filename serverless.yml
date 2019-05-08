@@ -5,8 +5,22 @@ provider:
   runtime: nodejs8.10
   stage: ${opt:stage, 'dev'}
   region: ap-northeast-1
+  iamRoleStatements:
+    - Effect: "Allow"
+      Action:
+        - "s3:ListBucket"
+        - "s3:GetObject"
+        - "s3:PutObject"
+        - "s3:DeleteObject"
+      Resource:
+        Fn::Join:
+          - ""
+          - - "arn:aws:s3:::"
+            - ${self:provider.environment.csv_bucket_name}
+            - "/*"
   environment:
     holiday_csv_url: 'https://www8.cao.go.jp/chosei/shukujitsu/syukujitsu.csv'
+    csv_bucket_name: ${opt:bucket-name}
     TZ: 'Asia/Tokyo'
 
 package:
@@ -37,3 +51,9 @@ functions:
           request:
             template:
               application/json: '{ "date" : "$input.params(''date'')" }'
+resources:
+  Resources:
+    CsvBucketName:
+      Type: AWS::S3::Bucket
+      Properties:
+        BucketName: ${self:provider.environment.csv_bucket_name}
