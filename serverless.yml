@@ -21,6 +21,7 @@ provider:
   environment:
     holiday_csv_url: 'https://www8.cao.go.jp/chosei/shukujitsu/syukujitsu.csv'
     csv_bucket_name: ${opt:bucket-name}
+    csv_bucket_expiration_in_days: ${opt:bucket-expiration-in-days, '1'}
     TZ: 'Asia/Tokyo'
 
 package:
@@ -57,3 +58,10 @@ resources:
       Type: AWS::S3::Bucket
       Properties:
         BucketName: ${self:provider.environment.csv_bucket_name}
+        LifecycleConfiguration:
+          Rules:
+          - Status: Enabled
+            ExpirationInDays: ${self:provider.environment.csv_bucket_expiration_in_days}
+            NoncurrentVersionExpirationInDays: 1
+            AbortIncompleteMultipartUpload:
+              DaysAfterInitiation: 1

@@ -19,6 +19,14 @@ echo ${BUCKET_NAME}
 sls deploy --bucket-name ${BUCKET_NAME}
 ```
 
+デプロイパラメータ
+
+|パラメータ|概要|必須(初期値)|
+|--|--|--|
+|--stage|環境|_false_ (dev)|
+|--bucket-name|祝日CSVをキャッシュするバケット名を指定|_true_|
+|--bucket-expiration-in-days|キャッシュの有効期間(day)|_false_ (1)|
+
 ### API
 
 - holiday
