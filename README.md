@@ -11,12 +11,8 @@
 ### deploy
 
 ```sh
-BUCKET_NAME=public-holiday-api-$(cat /dev/urandom | tr -dc 'a-z0-9' | fold -w 16 | head -n 1)
-echo ${BUCKET_NAME}
-  #
-
 (cd layer/nodejs; npm install)
-sls deploy --bucket-name ${BUCKET_NAME}
+sls deploy
 ```
 
 デプロイパラメータ
@@ -24,7 +20,6 @@ sls deploy --bucket-name ${BUCKET_NAME}
 |パラメータ|概要|必須(初期値)|
 |--|--|--|
 |--stage|環境|_false_ (dev)|
-|--bucket-name|祝日CSVをキャッシュするバケット名を指定|_true_|
 |--bucket-expiration-in-days|キャッシュの有効期間(day)|_false_ (1)|
 
 ### API

@@ -16,11 +16,11 @@ provider:
         Fn::Join:
           - ""
           - - "arn:aws:s3:::"
-            - ${self:provider.environment.csv_bucket_name}
+            - !Ref CsvBucketName
             - "/*"
   environment:
     holiday_csv_url: 'https://www8.cao.go.jp/chosei/shukujitsu/syukujitsu.csv'
-    csv_bucket_name: ${opt:bucket-name}
+    csv_bucket_name: !Ref CsvBucketName
     csv_bucket_expiration_in_days: ${opt:bucket-expiration-in-days, '1'}
     TZ: 'Asia/Tokyo'
 
@@ -57,7 +57,6 @@ resources:
     CsvBucketName:
       Type: AWS::S3::Bucket
       Properties:
-        BucketName: ${self:provider.environment.csv_bucket_name}
         LifecycleConfiguration:
           Rules:
           - Status: Enabled
