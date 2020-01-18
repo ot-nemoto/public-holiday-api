@@ -8,6 +8,19 @@
 
 ## 使い方
 
+バージョン
+
+```sh
+node -v
+  # v12.14.1
+sls -v
+  # Framework Core: 1.61.2
+  # Plugin: 3.2.7
+  # SDK: 2.2.1
+  # Components Core: 1.1.2
+  # Components CLI: 1.4.0
+```
+
 ### deploy
 
 ```sh
